@@ -1,35 +1,40 @@
 import random
 
 play = True
+#funktsioon küsib, kas soovid jätkata. `y` sisestamisel tagastab True ning `n` sisestamisel tagastab False ja ka tulemused.
 def replay():                                               
-    playAgain = input("Do you want to play again (y/n) ? ")
+    playAgain = input("Kas soovid uuesti mängida (y/n) ? ")
     if playAgain.lower() == 'y':
         return True
     if playAgain.lower() == 'n':    
-        print(*results, sep = "\n")
+        print("_"*35,"Sinu tulemused:", *tulemused, sep = "\n")
         return False
-results = []
-order_number = 0
+tulemused = []
+järjenumber = 0
+#Tsükkel töötab anult siis kui variable `play` on True, mida küsitakse funktsioonis replay()
 while play:
-    n1 = int(input("Choose a number in range 1- "))
-    number = random.randint(1, n1)
-    guesses = 1
-    print(f"guess the number in range 1-{n1}")
+    #küsib kasutajalt vahemiku suuruse
+    n1 = int(input("Vali väikseim number "))
+    n2 = int(input("Vali suurim number "))
+    number = random.randint(n1, n2)
+    arvamised = 1
+    print(f"Arva ära number vahemikus {n1}-{n2}")
+    #funktsioon töötab kuni kasutaja ei arva numbri
     while True:
         guess = input()
         guess = int(guess)
         if guess == number:
-            order_number += 1
-            print(f"You guessed it! \n it took you {guesses} guesses")
-            results.append(f"attempt {order_number}: {guesses} guesses, range 1-{n1}")
+            järjenumber += 1
+            print(f"arvasid ära \n sul võttis ära arvamiseks {arvamised} katset")
+            tulemused.append(f"{järjenumber}) {arvamised} katset, vahemik {n1}-{n2}, arv {number}")
             play = replay()
             break
         elif guess > number:
-            print("The number is smaller")
-            guesses += 1
+            print("number on väiksem")
+            arvamised += 1
         elif guess < number:
-            print("The number is bigger")
-            guesses += 1
+            print("number on suurem")
+            arvamised += 1
 
 
 
