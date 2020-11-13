@@ -1,7 +1,6 @@
 import random
 
 play = True
-#funktsioon küsib, kas soovid jätkata. `y` sisestamisel tagastab True ning `n` sisestamisel tagastab False ja ka tulemused.
 def replay():                                               
     playAgain = input("Kas soovid uuesti mängida (y/n) ? ")
     if playAgain.lower() == 'y':
@@ -11,15 +10,25 @@ def replay():
         return False
 tulemused = []
 järjenumber = 0
-#Tsükkel töötab anult siis kui variable `play` on True, mida küsitakse funktsioonis replay()
 while play:
-    #küsib kasutajalt vahemiku suuruse
-    n1 = int(input("Vali väikseim number "))
-    n2 = int(input("Vali suurim number "))
-    number = random.randint(n1, n2)
+    validation = False
+    n1 = input("Vali väikseim number(n1): ")
+    n2 = input("Vali suurim number((n2): ")
+    while not validation:
+        try:
+            n1 = int(n1)
+        except ValueError:
+            n1 = input("See ei ole number(n1), palun sisestage uuesti väikseim number: ")
+        try:
+            n2 = int(n2)
+            if n1 == str(n1):
+                continue
+            validation = True
+        except ValueError:
+            n2 = input("See ei ole number(n2), palun sisestage uuesti suurim number: ")
     arvamised = 1
+    number = random.randint(n1, n2)
     print(f"Arva ära number vahemikus {n1}-{n2}")
-    #funktsioon töötab kuni kasutaja ei arva numbri
     while True:
         guess = input()
         guess = int(guess)
